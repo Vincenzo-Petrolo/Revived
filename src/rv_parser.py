@@ -177,13 +177,18 @@ class Parser(object):
             self.dlx_program.insert(where, Instruction("nop",[]))
     
     def solveBranchDelaySlot(self):
-        pass
-
+        for i, line in enumerate(self.dlx_program):
+            if (type(line) == Label):
+                continue
+            if (line.getInstruction() in ["j", "jr", "jal", "beqz", "bnez"]):
+                self.insertNOPs(self.branch_delay_slot, i+1)
+                
     
     def writeDlxProgram(self, output_file):
         # Before writing, correct the code
         self.initStackPointer()
         self.solveDataDependencies()
+        self.solveBranchDelaySlot()
         with open(output_file, "w") as fp:
             for instr in self.dlx_program:
                 fp.write(str(instr))
