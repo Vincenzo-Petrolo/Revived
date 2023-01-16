@@ -123,7 +123,58 @@ class Parser(object):
         self.dlx_program = [dlx_inst] + self.dlx_program
     
     def solveDataDependencies(self):
-        pass
+        # Solving only RAW because WAW and WAR can't happen (?)
+        for i, instruction in enumerate(self.dlx_program):
+
+            if (type(instruction) == Label or instruction.getInstruction() == "sw"):
+                continue
+
+            operands = instruction.getOperands()
+
+            if (len(operands) == 0):
+                continue
+
+            next_instr = self.getNextInstructions(i, 3)
+            
+            for j in range(len(next_instr)):
+                if (type(next_instr[j]) == Label):
+                    continue
+
+                if (self.checkRAW(operands[0], next_instr[j])):
+                    self.insertNOPs(3-j, i+1)
+                    break
+    
+    def checkRAW(self, operand, instruction : Instruction):
+
+        if (instruction.getInstruction() == "sw"):
+            read_operands = instruction.getOperands()
+        else:
+            read_operands = instruction.getOperands()[1:]
+
+        for read_operand in read_operands:
+            if (operand in read_operand):
+                return True
+
+
+        return False
+    
+    def getNextInstructions(self, where, n_instr):
+        instructions = []
+
+        next = self.dlx_program[where + 1:]
+
+        for inst in next:
+            if (len(instructions) == n_instr):
+                break
+            if (type(inst) != Label):
+                instructions.append(inst)
+        
+        return instructions
+
+            
+    def insertNOPs(self, n_nops, where):
+        for n in range(n_nops):
+            self.dlx_program.insert(where, Instruction("nop",[]))
     
     def solveBranchDelaySlot(self):
         pass
@@ -132,6 +183,7 @@ class Parser(object):
     def writeDlxProgram(self, output_file):
         # Before writing, correct the code
         self.initStackPointer()
+        self.solveDataDependencies()
         with open(output_file, "w") as fp:
             for instr in self.dlx_program:
                 fp.write(str(instr))
