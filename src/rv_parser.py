@@ -81,7 +81,11 @@ class Parser(object):
         if (rv_inst.getInstruction() in ["li", "mv"]):
             dlx_op = "addi"
             dlx_operands += self.convertOperands(rv_inst.getOperands())
-            dlx_operands += ["#0"]
+            if ('r' in dlx_operands[-1]):
+                #if last operand is a reg
+                dlx_operands.insert(2,"#0")
+            else:
+                dlx_operands.insert(1,"#0")
             dlx_instructions.append(Instruction(dlx_op, dlx_operands))
         elif (rv_inst.getInstruction() == "not"):
             dlx_op = pseudo_map[rv_inst.getInstruction()]
@@ -117,7 +121,7 @@ class Parser(object):
         return unrolled_inst
     
     def initStackPointer(self):
-        sp_init = self.datamem_size - 1
+        sp_init = self.datamem_size
         dlx_inst = Instruction("addi", self.convertOperands(["sp", "r0", str(sp_init)]))
 
         self.dlx_program = [dlx_inst] + self.dlx_program

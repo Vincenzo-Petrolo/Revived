@@ -1,4 +1,4 @@
-	addi	r2,r0,#2047
+	addi	r2,r0,#256
 	nop	
 	nop	
 	nop	
@@ -11,12 +11,12 @@ main:
 	addi	r8,r2,#32
 	nop	
 	nop	
-	addi	r15,#1,#0
+	addi	r15,#0,#1
 	nop	
 	nop	
 	nop	
 	sw	-20(r8),r15
-	addi	r15,#3,#0
+	addi	r15,#0,#3
 	nop	
 	nop	
 	nop	
