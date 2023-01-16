@@ -28,7 +28,7 @@ main:
 	lw	a0,-20(s0)
 	call	mul
 	sw	a0,-36(s0)
-	li	a5,0
+	lw	a5,-28(s0)
 	mv	a0,a5
 	lw	ra,44(sp)
 	lw	s0,40(sp)

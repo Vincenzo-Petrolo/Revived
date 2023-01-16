@@ -1,4 +1,4 @@
-	addi	r2,r0,#2047
+	addi	r2,r0,#256
 	nop	
 	nop	
 	nop	
@@ -7,17 +7,17 @@ main:
 	nop	
 	nop	
 	nop	
-	sw	44(r2),r1
+	sw	44(r2),r31
 	sw	40(r2),r8
 	addi	r8,r2,#48
 	nop	
 	nop	
-	addi	r15,#1,#0
+	addi	r15,#0,#1
 	nop	
 	nop	
 	nop	
 	sw	-20(r8),r15
-	addi	r15,#2,#0
+	addi	r15,#0,#2
 	nop	
 	nop	
 	nop	
@@ -46,12 +46,12 @@ main:
 	nop	
 	nop	
 	sw	-36(r8),r10
-	addi	r15,#0,#0
+	lw	r15,-28(r8)
 	nop	
 	nop	
 	nop	
 	addi	r10,r15,#0
-	lw	r1,44(r2)
+	lw	r31,44(r2)
 	lw	r8,40(r2)
 	addi	r2,r2,#48
 	nop	
@@ -121,12 +121,14 @@ sub:
 	jr	r31
 	nop	
 	nop	
+	nop	
+	nop	
 mul:
 	addi	r2,r2,#-48
 	nop	
 	nop	
 	nop	
-	sw	44(r2),r1
+	sw	44(r2),r31
 	sw	40(r2),r8
 	addi	r8,r2,#48
 	nop	
@@ -166,6 +168,9 @@ L8:
 	nop	
 	nop	
 	slt	r28,r14,r15
+	nop	
+	nop	
+	nop	
 	bnez	r28,L9
 	nop	
 	nop	
@@ -174,7 +179,7 @@ L8:
 	nop	
 	nop	
 	addi	r10,r15,#0
-	lw	r1,44(r2)
+	lw	r31,44(r2)
 	lw	r8,40(r2)
 	addi	r2,r2,#48
 	jr	r31

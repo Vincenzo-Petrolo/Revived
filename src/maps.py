@@ -5,7 +5,7 @@ Useful maps for converting from risc to dlx
 regs_map = {
     "zero"  :   "r0",
     "0"     :   "r0",   # has two names in ABI
-    "ra"    :   "r1",
+    "ra"    :   "r31",
     "sp"    :   "r2",
     "gp"    :   "r3",
     "tp"    :   "r4",
@@ -36,7 +36,7 @@ regs_map = {
     "t3"    :   "r28",  # t3 aka r28 is used when converting complex branch instructions, it's never used by the compiler
     "t4"    :   "r29",
     "t5"    :   "r30",
-    "t6"    :   "r31"
+    "t6"    :   "r1"
 }
 
 pseudo_map = {

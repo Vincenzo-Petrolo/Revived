@@ -103,7 +103,8 @@ class Parser(object):
             dlx_instructions.append(Instruction(dlx_op, dlx_operands))
         elif (rv_inst.getInstruction() == "jr"):
             dlx_op = pseudo_map[rv_inst.getInstruction()]
-            dlx_instructions.append(Instruction(dlx_op, ["r31"]))
+            jr_inst = Instruction(dlx_op, ["r31"])
+            dlx_instructions.append(jr_inst)
         elif (rv_inst.getInstruction() in ["beq", "bne", "blt", "bgt", "ble", "bge"]):
             dlx_instructions += self.convertBranch(rv_inst)
         

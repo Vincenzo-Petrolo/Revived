@@ -11,7 +11,7 @@ int main(void) {
     d = sub(a, b);
     e = mul(a, b);
 
-    return 0;
+    return c;
 }
 
 int add(int a, int b)
