@@ -24,7 +24,7 @@ class Parser(object):
     def convert(self, rv_inst : Instruction | Label):
         # Label -> exit
         if (type(rv_inst) == Label):
-            return [Label(rv_inst.getLabel())]
+            return [Label(rv_inst.getLabel().removeprefix('.'))]
 
         dlx_inst = ""
         dlx_operands = []
@@ -67,7 +67,8 @@ class Parser(object):
                 dlx_operand = dlx_operand.replace(reg, regs_map[reg])
                 dlx_operands.append(dlx_operand)
             else:
-                dlx_operands.append(dlx_operand)
+                print(dlx_operand)
+                dlx_operands.append(dlx_operand.removeprefix('.'))
         
         return dlx_operands
     
@@ -108,7 +109,7 @@ class Parser(object):
         set_op      = pseudo_map[rv_inst.getInstruction()]
         operands    = rv_inst.getOperands()
         set_inst    = Instruction(set_op, ["r28"] + self.convertOperands(operands[:-1]))
-        br_inst     = Instruction("bnez", ["r28", operands[-1]])
+        br_inst     = Instruction("bnez", ["r28"] + self.convertOperands([operands[-1]]))
 
         unrolled_inst = [set_inst, br_inst]
 
