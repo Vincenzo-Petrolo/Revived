@@ -67,7 +67,6 @@ class Parser(object):
                 dlx_operand = dlx_operand.replace(reg, regs_map[reg])
                 dlx_operands.append(dlx_operand)
             else:
-                print(dlx_operand)
                 dlx_operands.append(dlx_operand.removeprefix('.'))
         
         return dlx_operands
