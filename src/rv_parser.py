@@ -8,7 +8,7 @@ class Parser(object):
         self.riscv_program  =   []
         self.dlx_program    =   []
         self.branch_delay_slot  = 2 # After a branch instruction place a nop
-        self.datamem_size   = 2048 #Bytes
+        self.datamem_size   = 256 #Bytes
     
     def addRiscLine(self, line : Instruction | Label):
         if (line is not None):
