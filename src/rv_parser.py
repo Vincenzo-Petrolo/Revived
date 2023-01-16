@@ -115,8 +115,9 @@ class Parser(object):
         operands    = rv_inst.getOperands()
         set_inst    = Instruction(set_op, ["r28"] + self.convertOperands(operands[:-1]))
         br_inst     = Instruction("bnez", ["r28"] + self.convertOperands([operands[-1]]))
+        nop         = Instruction("nop", [])
 
-        unrolled_inst = [set_inst, br_inst]
+        unrolled_inst = [set_inst, nop, nop, nop, br_inst]
 
         return unrolled_inst
     
