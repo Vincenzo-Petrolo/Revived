@@ -130,3 +130,5 @@ dmypy.json
 *.s
 *.txt
 *.out
+*.bin
+*.list

@@ -13,3 +13,10 @@ The input assembly file should be RISC-V assembly file obtained by cross-compila
 ```bash
 python3 revived.py --input=<file.s> [--output=<output.s>]
 ```
+
+## Compiling the DLX assembly
+Move into the dlx_asm directory and run the assembler.
+
+```bash
+./assembler.sh <code.s>
+```
