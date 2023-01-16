@@ -11,4 +11,4 @@ if __name__ == "__main__":
             obj = l.forward(line)
             p.addRiscLine(obj)
         
-        print(p)
+        p.writeDlxProgram("dlx_asm/simple.s")
