@@ -23,8 +23,11 @@ class Instruction(object):
 
 
 class Label(object):
-    def __init__(self, label) -> None:
+    def __init__(self, label : str) -> None:
         self.label = label
+
+        if (self.label.startswith('.')):
+            self.label = self.label.removeprefix('.')
     
 
     def getLabel(self):

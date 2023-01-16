@@ -44,7 +44,13 @@ pseudo_map = {
     "mv"    :   "addi",
     "not"   :   "xori",
     "neg"   :   "sub",
-    "call"  :   "jal"
+    "call"  :   "jal",
+    "bne"   :   "sne",
+    "beq"   :   "seq",
+    "ble"   :   "sle",
+    "bge"   :   "sge",
+    "blt"   :   "slt",
+    "bgt"   :   "sgt"
 }
 
 """

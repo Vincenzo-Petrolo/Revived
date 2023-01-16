@@ -11,7 +11,7 @@ class Parser(object):
     def addRiscLine(self, line : Instruction | Label):
         if (line is not None):
             self.riscv_program.append(line)
-            self.dlx_program.append(self.convert(line))
+            self.dlx_program += self.convert(line)
     
     def __str__(self) -> str:
         string = ""
@@ -24,31 +24,40 @@ class Parser(object):
     def convert(self, rv_inst : Instruction | Label):
         # Label -> exit
         if (type(rv_inst) == Label):
-            return Label(rv_inst.getLabel())
+            return [Label(rv_inst.getLabel())]
 
         dlx_inst = ""
         dlx_operands = []
 
-        # Convert first the instruction
         if (rv_inst.getInstruction() in pseudo_map.keys()):
             # A pseudo instruction will take care of generating
             # also the converted operands
-            dlx_inst, dlx_operands = self.convertPseudo(rv_inst)
+            dlx_instructions = self.convertPseudo(rv_inst)
+
+            return dlx_instructions
         else:
             dlx_inst = rv_inst.getInstruction()
             # Convert the operands
-            dlx_operands = self.convertOperands(rv_inst.getOperands())
+            if (len(rv_inst.getOperands()) == 2 and rv_inst.getInstruction() not in ["lw", "sw"]):
+                tmp_operands = self.convertOperands(rv_inst.getOperands())
+                dlx_operands = [tmp_operands[0], tmp_operands[0], tmp_operands[1]]
+            elif (rv_inst.getInstruction() == "sw"):
+                dlx_operands = self.convertOperands(rv_inst.getOperands())
+                dlx_operands.reverse()
+            else:
+                dlx_operands = self.convertOperands(rv_inst.getOperands())
+
         
         dlx_instruction = Instruction(dlx_inst, dlx_operands)
 
-        return dlx_instruction
+        return [dlx_instruction]
     
     def convertOperands(self, rv_operands : list):
         dlx_operands = []
 
         for operand in rv_operands:
             dlx_operand = operand
-            if (str(operand).startswith('-') and str(operand).removeprefix('-').isdigit()):
+            if ((str(operand).startswith('-') and str(operand).removeprefix('-').isdigit()) or operand.isdigit()):
                 dlx_operands.append(f"#{dlx_operand}")
             elif (operand in regs_map.keys()):
                 dlx_operands.append(regs_map[operand])
@@ -57,30 +66,37 @@ class Parser(object):
                 reg    = result.group(1)
                 dlx_operand = dlx_operand.replace(reg, regs_map[reg])
                 dlx_operands.append(dlx_operand)
+            else:
+                dlx_operands.append(dlx_operand)
         
         return dlx_operands
     
     def convertPseudo(self, rv_inst : Instruction):
         dlx_op = ""
         dlx_operands = []
+        dlx_instructions = []
 
         if (rv_inst.getInstruction() in ["li", "mv"]):
             dlx_op = "addi"
             dlx_operands += self.convertOperands(rv_inst.getOperands())
             dlx_operands += ["#0"]
+            dlx_instructions.append(Instruction(dlx_op, dlx_operands))
         elif (rv_inst.getInstruction() == "not"):
             dlx_op = pseudo_map[rv_inst.getInstruction()]
             dlx_operands += self.convertOperands(rv_inst.getOperands())
             dlx_operands += ["#-1"]
+            dlx_instructions.append(Instruction(dlx_op, dlx_operands))
         elif (rv_inst.getInstruction() == "neg"):
             dlx_op = pseudo_map[rv_inst.getInstruction()]
             tmp_operands = self.convertOperands(rv_inst.getOperands())
             dlx_operands += [tmp_operands[0], "r0", tmp_operands[1]]
+            dlx_instructions.append(Instruction(dlx_op, dlx_operands))
         elif (rv_inst.getInstruction() == "call"):
             dlx_op = pseudo_map[rv_inst.getInstruction()]
             dlx_operands += rv_inst.getOperands()
+            dlx_instructions.append(Instruction(dlx_op, dlx_operands))
         
-        return dlx_op, dlx_operands
+        return dlx_instructions
 
     
     def writeDlxProgram(self, output_file):

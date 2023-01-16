@@ -23,7 +23,7 @@ class Lexer(object):
         # Clean the line from junk
         line = line.strip(' ').strip('\t').strip('\n')
 
-        if (line.startswith('.')):
+        if (line.startswith('.') and not line.endswith(':')):
             return None
 
         tokens = re.split("\t|,", line)

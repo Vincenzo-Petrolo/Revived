@@ -10,6 +10,12 @@ int main(void) {
         c = add(1, b);
     }
 
+    for (int i = 0; i < 10; i++)
+    {
+        c = add(a, i);
+    }
+    
+
     c = add(a,b);
 
     return c;
