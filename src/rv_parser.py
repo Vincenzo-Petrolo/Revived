@@ -7,6 +7,8 @@ class Parser(object):
         # Contain a list of Labels & Instructions
         self.riscv_program  =   []
         self.dlx_program    =   []
+        self.branch_delay_slot  = 2 # After a branch instruction place a nop
+        self.datamem_size   = 2048 #Bytes
     
     def addRiscLine(self, line : Instruction | Label):
         if (line is not None):
@@ -113,9 +115,23 @@ class Parser(object):
         unrolled_inst = [set_inst, br_inst]
 
         return unrolled_inst
+    
+    def initStackPointer(self):
+        sp_init = self.datamem_size - 1
+        dlx_inst = Instruction("addi", self.convertOperands(["sp", "r0", str(sp_init)]))
+
+        self.dlx_program = [dlx_inst] + self.dlx_program
+    
+    def solveDataDependencies(self):
+        pass
+    
+    def solveBranchDelaySlot(self):
+        pass
 
     
     def writeDlxProgram(self, output_file):
+        # Before writing, correct the code
+        self.initStackPointer()
         with open(output_file, "w") as fp:
             for instr in self.dlx_program:
                 fp.write(str(instr))
