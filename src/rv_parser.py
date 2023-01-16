@@ -95,8 +95,24 @@ class Parser(object):
             dlx_op = pseudo_map[rv_inst.getInstruction()]
             dlx_operands += rv_inst.getOperands()
             dlx_instructions.append(Instruction(dlx_op, dlx_operands))
+        elif (rv_inst.getInstruction() == "jr"):
+            dlx_op = pseudo_map[rv_inst.getInstruction()]
+            dlx_instructions.append(Instruction(dlx_op, ["r31"]))
+        elif (rv_inst.getInstruction() in ["beq", "bne", "blt", "bgt", "ble", "bge"]):
+            dlx_instructions += self.convertBranch(rv_inst)
         
         return dlx_instructions
+    
+    def convertBranch(self, rv_inst : Instruction):
+        # Use register r28 to store the result from the set
+        set_op      = pseudo_map[rv_inst.getInstruction()]
+        operands    = rv_inst.getOperands()
+        set_inst    = Instruction(set_op, ["r28"] + self.convertOperands(operands[:-1]))
+        br_inst     = Instruction("bnez", ["r28", operands[-1]])
+
+        unrolled_inst = [set_inst, br_inst]
+
+        return unrolled_inst
 
     
     def writeDlxProgram(self, output_file):

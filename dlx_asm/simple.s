@@ -9,14 +9,16 @@ main:
 	sw	-28(r8),r15
 	lw	r14,-24(r8)
 	addi	r15,#1,#0
+	sne	r28,r14,r15
+	bnez	r28,.L2
 	lw	r11,-28(r8)
 	addi	r10,#1,#0
 	jal	add
 	sw	-32(r8),r10
-L2:
+.L2:
 	sw	-20(r8),r0
 	j	.L3
-L4:
+.L4:
 	lw	r11,-20(r8)
 	lw	r10,-24(r8)
 	jal	add
@@ -24,9 +26,11 @@ L4:
 	lw	r15,-20(r8)
 	addi	r15,r15,#1
 	sw	-20(r8),r15
-L3:
+.L3:
 	lw	r14,-20(r8)
 	addi	r15,#9,#0
+	sle	r28,r14,r15
+	bnez	r28,.L4
 	lw	r11,-28(r8)
 	lw	r10,-24(r8)
 	jal	add
@@ -36,7 +40,7 @@ L3:
 	lw	r1,28(r2)
 	lw	r8,24(r2)
 	addi	r2,r2,#32
-	jr	r1
+	jr	r31
 add:
 	addi	r2,r2,#-32
 	sw	28(r2),r8
@@ -49,4 +53,4 @@ add:
 	addi	r10,r15,#0
 	lw	r8,28(r2)
 	addi	r2,r2,#32
-	jr	r1
+	jr	r31

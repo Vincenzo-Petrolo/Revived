@@ -26,9 +26,6 @@ class Label(object):
     def __init__(self, label : str) -> None:
         self.label = label
 
-        if (self.label.startswith('.')):
-            self.label = self.label.removeprefix('.')
-    
 
     def getLabel(self):
         return self.label

@@ -33,7 +33,7 @@ regs_map = {
     "s9"    :   "r25",
     "s10"   :   "r26",
     "s11"   :   "r27",
-    "t3"    :   "r28",
+    "t3"    :   "r28",  # t3 aka r28 is used when converting complex branch instructions, it's never used by the compiler
     "t4"    :   "r29",
     "t5"    :   "r30",
     "t6"    :   "r31"
@@ -45,6 +45,7 @@ pseudo_map = {
     "not"   :   "xori",
     "neg"   :   "sub",
     "call"  :   "jal",
+    "jr"    :   "jr",
     "bne"   :   "sne",
     "beq"   :   "seq",
     "ble"   :   "sle",
