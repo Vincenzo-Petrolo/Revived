@@ -8,7 +8,7 @@ class Parser(object):
         self.riscv_program  =   []
         self.dlx_program    =   []
         self.branch_delay_slot  = 2 # After a branch instruction place a nop
-        self.datamem_size   = 256 #Bytes
+        self.datamem_size   = 1024 #Bytes
     
     def addRiscLine(self, line : Instruction | Label):
         if (line is not None):
@@ -126,7 +126,13 @@ class Parser(object):
         sp_init = self.datamem_size
         dlx_inst = Instruction("addi", self.convertOperands(["sp", "r0", str(sp_init)]))
 
-        self.dlx_program = [dlx_inst] + self.dlx_program
+        self.dlx_program = [dlx_inst] + self.jumpToMain() + self.dlx_program
+    
+    def jumpToMain(self):
+        dlx_inst = Instruction("j", ["main"])
+
+        return [dlx_inst]
+
     
     def solveDataDependencies(self):
         # Solving only RAW because WAW and WAR can't happen (?)

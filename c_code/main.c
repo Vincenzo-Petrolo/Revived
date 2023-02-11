@@ -6,7 +6,7 @@ int main(void) {
 
     int a = 10;
     int b = 2;
-    int result = mul(a, b);
+    int result = fibonacci(a);
 
     print_result(result);
 

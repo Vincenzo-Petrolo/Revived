@@ -73,7 +73,7 @@ void print_result(int result)
         unsigned int mask = 0xF;
         unsigned int masked_value;
         masked_value = 0xF << 4*i;
-        unsigned int tmp = result & mask;
+        unsigned int tmp = result & masked_value;
         //Get the index
         unsigned int index = tmp >> (i*4);
         // Assign to the buffer
