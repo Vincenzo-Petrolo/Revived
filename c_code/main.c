@@ -4,11 +4,26 @@
 
 int main(void) {
 
-    int a = 10;
-    int b = 2;
-    int result = fibonacci(a);
+    // String to use for printing
+    int string[100];
 
-    print_result(result);
+    /**
+     * FIBONACCI
+    */
+    // Testing starts
+    int result = fibonacci(10);
+
+    if (result == 55) {
+        // Use this for printing the word fibonacci
+        FIBONACCI_STR
+        printf(string);
+        // Prints if it was okay
+        print_success();
+        // Print the result
+        print_result(result);
+    }
+
+
 
     // Halt the processor
     halt();

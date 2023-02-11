@@ -1,5 +1,6 @@
 #define DISPLAY_ADDRESS 4100
 #define DISPLAY_SIZE 20
+#define END_OF_TEXT 3
 #define LUT_INITIALIZATION \
 lut[0] = '0'; \
 lut[1] = '1'; \
@@ -18,11 +19,25 @@ lut[13] = 'D'; \
 lut[14] = 'E'; \
 lut[15] = 'F';
 
+#define FIBONACCI_STR \
+string[0] = 'F';\
+string[1] = 'i';\
+string[2] = 'b';\
+string[3] = 'o';\
+string[4] = 'n';\
+string[5] = 'a';\
+string[6] = 'c';\
+string[7] = 'c';\
+string[8] = 'i';\
+string[9] = END_OF_TEXT; // END OF TEXT CHAR
+
 
 // Each cell in the string, contains 1 char
 // because our memory is word addressable
 void printf(int *string)
 {
+    clear_buffer();
+
     int *buffer = DISPLAY_ADDRESS;
     // Copy the string into the memory buffer
     for (int i = 0; i < DISPLAY_SIZE; i++)
@@ -37,7 +52,7 @@ void printf(int *string)
 void clear_buffer(void)
 {
     int *buffer = DISPLAY_ADDRESS;
-    for (int i = 0; i < DISPLAY_SIZE; i++)
+    for (int i = DISPLAY_SIZE - 1; i >= 0; i--)
     {
         buffer[i] = 0;
     }
@@ -79,6 +94,8 @@ void print_result(int result)
         // Assign to the buffer
         string[17-i] = lut[index];
     }
+
+    string[18] = END_OF_TEXT;
     
     printf(string);
 
@@ -92,6 +109,7 @@ void print_success(void) {
     buffer[0] = 'Y';
     buffer[1] = 'e';
     buffer[2] = 's';
+    buffer[3] = END_OF_TEXT;
 
     return;
 }
