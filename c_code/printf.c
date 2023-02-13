@@ -31,6 +31,17 @@ string[7] = 'c';\
 string[8] = 'i';\
 string[9] = END_OF_TEXT; // END OF TEXT CHAR
 
+#define QUICKSORT_STR \
+string[0] = 'Q';\
+string[1] = 'u';\
+string[2] = 'i';\
+string[3] = 'c';\
+string[4] = 'k';\
+string[5] = 's';\
+string[6] = 'o';\
+string[7] = 'r';\
+string[8] = 't';\
+string[9] = END_OF_TEXT; // END OF TEXT CHAR
 
 // Each cell in the string, contains 1 char
 // because our memory is word addressable
