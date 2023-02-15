@@ -43,6 +43,21 @@ string[7] = 'r';\
 string[8] = 't';\
 string[9] = END_OF_TEXT; // END OF TEXT CHAR
 
+#define BINARY_SEARCH_STR \
+string[0] = 'B';\
+string[1] = 'i';\
+string[2] = 'n';\
+string[3] = 'a';\
+string[4] = 'r';\
+string[5] = 'y';\
+string[6] = 'S';\
+string[7] = 'e';\
+string[8] = 'a';\
+string[9] = 'r';\
+string[10] = 'c';\
+string[11] = 'h';\
+string[12] = END_OF_TEXT; // END OF TEXT CHAR
+
 // Each cell in the string, contains 1 char
 // because our memory is word addressable
 void printf(int *string)

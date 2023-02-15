@@ -53,6 +53,17 @@ int main(void)
         print_success();
     }
 
+    // Do Binary search
+    int index = binary_search(array, 10, 2);
+
+    if (index >= 0 && array[index] == 2) {
+        // Use this for printing the word "Binary Search"
+        BINARY_SEARCH_STR
+        printf(string);
+        // Prints if it was okay
+        print_success();
+    }
+
     // Halt the processor
     halt();
 }
