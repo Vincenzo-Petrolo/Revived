@@ -64,6 +64,18 @@ int main(void)
         print_success();
     }
 
+
+    result = mulMat();
+
+    if (result == 1) {
+        // Use this for printing the word "Binary Search"
+        MATRIX_MUL_STR 
+        printf(string);
+        // Prints if it was okay
+        print_success();
+    }
+
+
     // Halt the processor
     halt();
 }

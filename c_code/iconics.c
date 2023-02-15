@@ -79,3 +79,48 @@ int mul(int a, int b) {
 
     return a + mul(a, b-1);
 }
+
+#define C1 2
+#define C2 2
+#define R1 2
+#define R2 2
+
+int mulMat()
+{
+    // Do Matrix-Matrix Multiplication
+    int mat1[R1][C1];
+    int mat2[R2][C2];
+    int result[R1][C2];
+
+    // Initialize the matrix values
+    mat1[0][0] = 1;
+    mat1[0][1] = 2;
+    mat1[1][0] = 3;
+    mat1[1][1] = 4;
+
+    mat2[0][0] = 1;
+    mat2[0][1] = 2;
+    mat2[1][0] = 3;
+    mat2[1][1] = 4;
+ 
+    for (int i = 0; i < R1; i++) {
+        for (int j = 0; j < C2; j++) {
+            result[i][j] = 0;
+ 
+            for (int k = 0; k < R2; k++) {
+                result[i][j] += mul(mat1[i][k],mat2[k][j]);
+            }
+ 
+        }
+    }
+
+    // Check the result
+
+    if (result[0][0] == 7 && result[0][1] == 10 && result[1][0] == 15 && result[1][1] == 22) {
+        return 1;
+    }
+
+
+    return 0;
+
+}

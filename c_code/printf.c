@@ -58,6 +58,29 @@ string[10] = 'c';\
 string[11] = 'h';\
 string[12] = END_OF_TEXT; // END OF TEXT CHAR
 
+#define MATRIX_MUL_STR \
+string[0] = 'M';\
+string[1] = 'a';\
+string[2] = 't';\
+string[3] = 'r';\
+string[4] = 'i';\
+string[5] = 'x';\
+string[6] = 'M';\
+string[7] = 'u';\
+string[8] = 'l';\
+string[9] = 't';\
+string[10] = 'i';\
+string[11] = 'p';\
+string[12] = 'l';\
+string[13] = 'i';\
+string[14] = 'c';\
+string[15] = 'a';\
+string[16] = 't';\
+string[17] = 'i';\
+string[18] = 'o';\
+string[19] = 'n';\
+string[10] = END_OF_TEXT; // END OF TEXT CHAR
+
 // Each cell in the string, contains 1 char
 // because our memory is word addressable
 void printf(int *string)
