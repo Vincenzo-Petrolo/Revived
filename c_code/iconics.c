@@ -1,3 +1,4 @@
+#include "math.c"
 /**
  * Iconics algorithms in C
 */
@@ -84,6 +85,8 @@ int mul(int a, int b) {
 #define C2 2
 #define R1 2
 #define R2 2
+
+// Matrix multiplication of 2 2x2 matrices
 
 int mulMat()
 {

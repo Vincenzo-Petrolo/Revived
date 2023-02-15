@@ -68,7 +68,7 @@ int main(void)
     result = mulMat();
 
     if (result == 1) {
-        // Use this for printing the word "Binary Search"
+        // Use this for printing the word "Matrix Multiplication"
         MATRIX_MUL_STR 
         printf(string);
         // Prints if it was okay
